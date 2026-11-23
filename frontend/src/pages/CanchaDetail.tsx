@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Court from "../components/Court";
 import { ApiError, canchasApi, formatFecha, formatPrecio } from "../lib/api";
 import { useSession } from "../lib/auth-client";
 import { PAREDES_LABEL, SUPERFICIE_LABEL, type Cancha } from "../lib/types";
@@ -19,34 +20,37 @@ export default function CanchaDetail() {
 
   if (error)
     return (
-      <div className="empty card">
+      <div className="empty">
         <p>{error}</p>
-        <Link to="/" className="btn btn-ghost">Volver al listado</Link>
+        <Link to="/" className="btn btn-quiet">Ver todas las canchas</Link>
       </div>
     );
-  if (!cancha) return <div className="loader">Cargando…</div>;
+  if (!cancha) return <p className="loader">Cargando…</p>;
 
   return (
     <article className="detail">
-      <Link to="/" className="back">← Volver</Link>
-      <div className="court court-lg" aria-hidden>
-        <div className="court-net" />
-        <span className={`tag ${cancha.techada ? "tag-on" : ""}`}>{cancha.techada ? "Techada" : "Al aire libre"}</span>
-      </div>
-      <div className="detail-head">
+      <Link to="/" className="back">Volver al listado</Link>
+      <header className="detail-head">
         <div>
-          <p className="club">{cancha.club}</p>
           <h1>{cancha.nombre}</h1>
-          <p className="muted">{cancha.direccion}</p>
+          <p className="detail-club">{cancha.club}, {cancha.direccion}</p>
         </div>
-        <div className="price price-lg">{formatPrecio(cancha.precioPorHora)}<small>/hora</small></div>
+        <p className="detail-price">
+          <strong>{formatPrecio(cancha.precioPorHora)}</strong>
+          <span>por hora</span>
+        </p>
+      </header>
+
+      <div className="detail-plan">
+        <Court horizontal superficie={cancha.superficie} paredes={cancha.paredes} techada={cancha.techada} className="detail-court" />
+        <dl className="specs">
+          <div><dt>Superficie</dt><dd>{SUPERFICIE_LABEL[cancha.superficie]}</dd></div>
+          <div><dt>Paredes</dt><dd>{PAREDES_LABEL[cancha.paredes]}</dd></div>
+          <div><dt>Techo</dt><dd>{cancha.techada ? "Techada" : "Al aire libre"}</dd></div>
+          <div><dt>Inaugurada</dt><dd>{formatFecha(cancha.fechaInauguracion)}</dd></div>
+        </dl>
       </div>
-      <dl className="specs card">
-        <div><dt>Superficie</dt><dd>{SUPERFICIE_LABEL[cancha.superficie]}</dd></div>
-        <div><dt>Paredes</dt><dd>{PAREDES_LABEL[cancha.paredes]}</dd></div>
-        <div><dt>Techada</dt><dd>{cancha.techada ? "Sí" : "No"}</dd></div>
-        <div><dt>Inauguración</dt><dd>{formatFecha(cancha.fechaInauguracion)}</dd></div>
-      </dl>
+
       {session?.user.role === "admin" && (
         <Link to={`/admin/canchas/${cancha._id}/editar`} className="btn btn-primary">Editar cancha</Link>
       )}

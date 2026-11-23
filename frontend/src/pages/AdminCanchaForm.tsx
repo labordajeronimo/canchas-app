@@ -41,7 +41,7 @@ export default function AdminCanchaForm() {
 
   return (
     <div className="narrow">
-      <Link to="/admin" className="back">← Volver al panel</Link>
+      <Link to="/admin" className="back">Volver a canchas</Link>
       <h1>{editing ? "Editar cancha" : "Nueva cancha"}</h1>
       <CanchaForm defaultValues={defaults} submitLabel={editing ? "Guardar cambios" : "Crear cancha"} onSubmit={onSubmit} />
     </div>

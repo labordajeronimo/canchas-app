@@ -52,7 +52,7 @@ export default function CanchaForm({ defaultValues, submitLabel, onSubmit }: Pro
   }
 
   return (
-    <form className="form card" onSubmit={handleSubmit(submit)} noValidate>
+    <form className="form form-panel" onSubmit={handleSubmit(submit)} noValidate>
       <div className="grid-2">
         <Field label="Nombre de la cancha" error={errors.nombre?.message}>
           <input {...register("nombre")} placeholder="Cancha 1" />

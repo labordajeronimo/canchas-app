@@ -28,8 +28,9 @@ export default function Register() {
   }
 
   return (
-    <div className="auth card">
+    <div className="auth">
       <h1>Crear cuenta</h1>
+      <p className="auth-sub">Con una cuenta podés consultar todas las canchas cargadas.</p>
       <form onSubmit={handleSubmit(onSubmit)} className="form" noValidate>
         <label className={`field ${errors.name ? "has-error" : ""}`}>
           <span>Nombre</span>
@@ -54,9 +55,9 @@ export default function Register() {
         {errors.root && <p className="alert">{errors.root.message}</p>}
         <button className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Creando…" : "Crear cuenta"}</button>
       </form>
-      <div className="divider"><span>o</span></div>
+      <div className="divider"><span>o seguí con</span></div>
       <SocialButtons />
-      <p className="muted small center">¿Ya tenés cuenta? <Link to="/login">Ingresá</Link></p>
+      <p className="auth-foot">¿Ya tenés cuenta? <Link to="/login">Ingresá</Link></p>
     </div>
   );
 }

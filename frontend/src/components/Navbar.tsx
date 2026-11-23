@@ -14,26 +14,27 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <div className="container navbar-inner">
-        <Link to="/" className="brand">
-          <span className="ball" aria-hidden /> Canchas<span className="brand-dim">Rosario</span>
+        <Link to="/" className="brand" aria-label="Canchas Rosario, inicio">
+          <span className="brand-ball" aria-hidden />
+          Canchas Rosario
         </Link>
-        <nav className="nav-links">
+        <nav className="nav-links" aria-label="Principal">
           <NavLink to="/" end>Canchas</NavLink>
-          {isAdmin && <NavLink to="/admin">Panel admin</NavLink>}
+          {isAdmin && <NavLink to="/admin" end>Administrar</NavLink>}
           {isAdmin && <NavLink to="/admin/usuarios">Usuarios</NavLink>}
         </nav>
         <div className="nav-user">
           {isPending ? null : session ? (
             <>
-              <span className="user-chip">
+              <span className="user-chip" title={session.user.email}>
                 {session.user.name || session.user.email}
-                <span className={`role role-${session.user.role ?? "user"}`}>{session.user.role ?? "user"}</span>
+                {isAdmin && <span className="role">admin</span>}
               </span>
-              <button className="btn btn-ghost" onClick={handleLogout}>Salir</button>
+              <button className="btn btn-quiet" onClick={handleLogout}>Cerrar sesión</button>
             </>
           ) : (
             <>
-              <Link to="/login" className="btn btn-ghost">Ingresar</Link>
+              <Link to="/login" className="btn btn-quiet">Ingresar</Link>
               <Link to="/registro" className="btn btn-primary">Crear cuenta</Link>
             </>
           )}

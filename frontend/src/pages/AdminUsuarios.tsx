@@ -39,11 +39,11 @@ export default function AdminUsuarios() {
       <div className="page-head">
         <div>
           <h1>Usuarios</h1>
-          <p className="muted">Cambiá el rol de cada usuario (authClient.admin.setRole).</p>
+          <p className="lede">Elegí quién puede administrar canchas. Los usuarios con rol user solo pueden consultar.</p>
         </div>
       </div>
       {error && <p className="alert">{error}</p>}
-      <div className="table-wrap card">
+      <div className="table-wrap">
         <table>
           <thead>
             <tr><th>Nombre</th><th>Email</th><th>Alta</th><th>Rol</th></tr>
@@ -53,7 +53,7 @@ export default function AdminUsuarios() {
               const yo = u.id === session?.user.id;
               return (
                 <tr key={u.id}>
-                  <td>{u.name} {yo && <span className="muted small">(vos)</span>}</td>
+                  <td>{u.name} {yo && <span className="you">(vos)</span>}</td>
                   <td>{u.email}</td>
                   <td>{new Date(u.createdAt).toLocaleDateString("es-AR")}</td>
                   <td>

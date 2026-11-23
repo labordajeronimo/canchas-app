@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
-    <div className="empty card">
-      <h1>404</h1>
-      <p className="muted">La página que buscás no existe.</p>
-      <Link to="/" className="btn btn-ghost">Volver al inicio</Link>
+    <div className="empty">
+      <h1>Esta página no existe</h1>
+      <p>Puede que el enlace esté mal escrito o que la página se haya movido.</p>
+      <Link to="/" className="btn btn-quiet">Ver canchas</Link>
     </div>
   );
 }

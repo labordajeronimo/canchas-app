@@ -33,17 +33,17 @@ export default function AdminCanchas() {
     <>
       <div className="page-head">
         <div>
-          <h1>Panel de admin</h1>
-          <p className="muted">Alta, baja y modificación de canchas.</p>
+          <h1>Administrar canchas</h1>
+          <p className="lede">Cargá, editá o borrá las canchas que se ven en el listado.</p>
         </div>
-        <Link to="/admin/canchas/nueva" className="btn btn-primary">+ Nueva cancha</Link>
+        <Link to="/admin/canchas/nueva" className="btn btn-primary">Cargar cancha</Link>
       </div>
 
-      <input className="search card" type="search" placeholder="Buscar…" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
+      <input className="admin-search" type="search" placeholder="Buscar por cancha, club o calle" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} />
 
       {error && <p className="alert">{error}</p>}
 
-      <div className="table-wrap card">
+      <div className="table-wrap">
         <table>
           <thead>
             <tr><th>Cancha</th><th>Club</th><th>Precio/h</th><th>Techada</th><th></th></tr>
@@ -56,13 +56,13 @@ export default function AdminCanchas() {
                 <td>{formatPrecio(c.precioPorHora)}</td>
                 <td>{c.techada ? "Sí" : "No"}</td>
                 <td className="actions">
-                  <Link to={`/admin/canchas/${c._id}/editar`} className="btn btn-ghost btn-sm">Editar</Link>
+                  <Link to={`/admin/canchas/${c._id}/editar`} className="btn btn-quiet btn-sm">Editar</Link>
                   <button className="btn btn-danger btn-sm" onClick={() => eliminar(c)}>Eliminar</button>
                 </td>
               </tr>
             ))}
             {result && result.data.length === 0 && (
-              <tr><td colSpan={5} className="muted center">No hay canchas cargadas.</td></tr>
+              <tr><td colSpan={5} className="table-empty">Todavía no hay canchas. Usá “Cargar cancha” para agregar la primera.</td></tr>
             )}
           </tbody>
         </table>

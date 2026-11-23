@@ -33,7 +33,7 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <footer className="footer">Canchas Rosario · Proyecto full stack con Express, React y Better Auth</footer>
+      <footer className="footer"><div className="container">Canchas Rosario. Proyecto full stack con Express, React y Better Auth.</div></footer>
     </>
   );
 }

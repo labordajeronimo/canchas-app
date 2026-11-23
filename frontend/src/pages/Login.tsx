@@ -30,8 +30,9 @@ export default function Login() {
   }
 
   return (
-    <div className="auth card">
+    <div className="auth">
       <h1>Ingresar</h1>
+      <p className="auth-sub">Entrá para ver tu cuenta. Los administradores también gestionan las canchas.</p>
       <form onSubmit={handleSubmit(onSubmit)} className="form" noValidate>
         <label className={`field ${errors.email ? "has-error" : ""}`}>
           <span>Email</span>
@@ -46,9 +47,9 @@ export default function Login() {
         {errors.root && <p className="alert">{errors.root.message}</p>}
         <button className="btn btn-primary" disabled={isSubmitting}>{isSubmitting ? "Ingresando…" : "Ingresar"}</button>
       </form>
-      <div className="divider"><span>o</span></div>
+      <div className="divider"><span>o seguí con</span></div>
       <SocialButtons />
-      <p className="muted small center">¿No tenés cuenta? <Link to="/registro">Registrate</Link></p>
+      <p className="auth-foot">¿No tenés cuenta? <Link to="/registro">Registrate</Link></p>
     </div>
   );
 }
