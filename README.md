@@ -12,8 +12,10 @@ Aplicación full stack para consultar **canchas de pádel** de Rosario y alreded
 
 | | URL |
 |---|---|
-| Frontend (Static Site) | https://`<tu-frontend>`.onrender.com |
-| Backend (Web Service) | https://`<tu-backend>`.onrender.com |
+| Frontend (Static Site) | https://canchas-frontend-l9s8.onrender.com |
+| Backend (Web Service) | https://canchas-backend-7laa.onrender.com |
+
+> ⏳ El backend usa el plan gratuito de Render: si estuvo inactivo, la primera carga puede tardar ~50 segundos.
 
 > El frontend llama siempre a `/api/...`; Render reescribe `/api/*` hacia el backend. Por eso las cookies de sesión quedan en el dominio del frontend.
 
@@ -21,8 +23,8 @@ Aplicación full stack para consultar **canchas de pádel** de Rosario y alreded
 
 | Rol | Email | Contraseña |
 |---|---|---|
-| admin | admin@canchas.com | `<completar>` |
-| user | user@canchas.com | `<completar>` |
+| admin | admin@canchas.com | `Admin1234` |
+| user | user@canchas.com | `User12345` |
 
 Se crean con `npm run seed` (ver más abajo).
 
@@ -84,6 +86,8 @@ npm install
 npm run dev                 # http://localhost:5173  (Vite hace proxy de /api → :3000)
 ```
 
+> Si en Windows `npm run seed` falla con `querySrv ECONNREFUSED`, es el DNS local: el backend ya usa 8.8.8.8 / 1.1.1.1 por defecto para resolver `mongodb+srv` (se puede cambiar con `DNS_SERVERS`).
+
 ### Variables de entorno (`backend/.env`)
 
 | Variable | Descripción |
@@ -110,7 +114,7 @@ En GitHub → Settings → Developer settings → OAuth Apps → *New OAuth App*
 - Root Directory: `backend`
 - Build Command: `npm install && npm run build`
 - Start Command: `npm start`
-- Variables: `MONGODB_URI`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://<tu-frontend>.onrender.com`, `FRONTEND_URL=https://<tu-frontend>.onrender.com`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`
+- Variables: `MONGODB_URI`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL=https://canchas-frontend-l9s8.onrender.com`, `FRONTEND_URL=https://canchas-frontend-l9s8.onrender.com`, `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`
 - En MongoDB Atlas → Network Access, permitir `0.0.0.0/0` (Render no tiene IP fija en el plan free).
 
 ### Frontend → Static Site
@@ -121,13 +125,13 @@ En GitHub → Settings → Developer settings → OAuth Apps → *New OAuth App*
 
 | Source | Destination | Action |
 |---|---|---|
-| `/api/*` | `https://<tu-backend>.onrender.com/api/*` | Rewrite |
+| `/api/*` | `https://canchas-backend-7laa.onrender.com/api/*` | Rewrite |
 | `/*` | `/index.html` | Rewrite |
 
 ### GitHub OAuth (producción)
 Crear **otra** OAuth App:
-- Homepage URL: `https://<tu-frontend>.onrender.com`
-- Callback URL: `https://<tu-frontend>.onrender.com/api/auth/callback/github`
+- Homepage URL: `https://canchas-frontend-l9s8.onrender.com`
+- Callback URL: `https://canchas-frontend-l9s8.onrender.com/api/auth/callback/github`
 
 > Alternativa: `render.yaml` en la raíz es un Blueprint con esta misma configuración.
 
